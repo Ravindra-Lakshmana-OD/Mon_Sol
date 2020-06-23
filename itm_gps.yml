@@ -1,0 +1,25 @@
+---
+- name: logon and get systemlist
+  hosts: all
+  gather_facts: true
+
+  tasks:
+
+    - name: login to tivoli test
+      command: " command: "/app/IBM/ITM/bin/tacmd login -s uschtivhp01 -u sysadmin -p {{ ANSIBLE_NET_PASSWORD }}"
+      register: login_test
+
+    - name: show results
+      debug:
+        var: login_test
+
+    - name: lets do a test to show some data now
+      command: "/app/IBM/ITM/bin/tacmd listsystems -t NT"
+      register: listsys_results
+
+    - debug:
+        var: listsys_results
+
+
+
+...
